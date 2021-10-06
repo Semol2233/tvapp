@@ -59,7 +59,6 @@ class fetapitwo(serializers.HyperlinkedModelSerializer):
 
 #homepage
 class Catgory_find_data(serializers.HyperlinkedModelSerializer):
-     catgory   = cat_name(read_only=True)
      class Meta:
         model = Add_Channel
         fields = [
@@ -67,7 +66,6 @@ class Catgory_find_data(serializers.HyperlinkedModelSerializer):
             'channel_name',
             'channel_logo',
             'straming_url',
-            'catgory'
             
         ]
 
