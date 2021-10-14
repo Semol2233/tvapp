@@ -11,6 +11,7 @@ from rest_framework.parsers import JSONParser,FormParser,MultiPartParser
 from django.http import HttpResponse
 #end
 from rest_framework.decorators import api_view
+from django.db.models import Q
 import random
 import datetime
 #user model
@@ -349,4 +350,38 @@ class play_page_channel_list(APIView, PaginationHandlerMixin):
             paginated_response = self.get_paginated_response(response)
             return JsonResponse(paginated_response.data, safe=False)
         return HttpResponse('No matching data found', status=404)
+
+
+
+
+
+
+
+
+
+
+
+
+
+class qa_pagenation(pagination.PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+class seeearcsssh_filter(APIView, PaginationHandlerMixin):
+    pagination_class = qa_pagenation
+
+    def get(self,request,query):
+        result = []
+        filter_postmodel_q = Add_Channel.objects.filter(Q(channel_name__contains=query) | Q(catgory__cat_name__contains=query)).values('channel_name','catgory','channel_logo')
+        if filter_postmodel_q:
+            for p in filter_postmodel_q:
+                result.append(p)
+
+        page = self.paginate_queryset(result)
+        paginated_response = self.get_paginated_response(page)
+        if len(result) == 0:
+            return HttpResponse('No matching data found', status=404)
+        return JsonResponse(paginated_response.data, safe=False)
+
 

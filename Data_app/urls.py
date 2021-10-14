@@ -15,6 +15,8 @@ urlpatterns = [
     path('play/<id>', dtlspage.as_view()),
     path('play_page_list/', player_page_listc.as_view()),
     path('play_page_channel_filter/<category>', play_page_channel_list.as_view()),
+    path('search/<query>', seeearcsssh_filter.as_view()),
+
 
 
 
