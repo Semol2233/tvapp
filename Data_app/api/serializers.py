@@ -39,10 +39,22 @@ class fetapi(serializers.HyperlinkedModelSerializer):
      class Meta:
         model = Add_Channel
         fields = [
-          'channel_name',
+          'cat_name',
           'straming_url',
           'channel_logo'
         ]
+
+
+class cat_listsa(serializers.HyperlinkedModelSerializer):
+     class Meta:
+        model = Channel_catgory
+        fields = [
+          'cat_name'
+        ]
+
+
+
+
 
 class fetapitwo(serializers.HyperlinkedModelSerializer):
      Featrued_Channel   = fetapi(read_only=True,many=True, required=False)

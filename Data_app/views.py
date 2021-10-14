@@ -324,6 +324,14 @@ class player_page_listc(generics.ListAPIView):
     serializer_class       = player_page_list
 
 
+class cat_list(generics.ListAPIView):
+    queryset = Channel_catgory.objects.all()
+    serializer_class       = cat_listsa
+
+
+
+
+
 
 
 class Tag_dsdsviewr(pagination.PageNumberPagination):
