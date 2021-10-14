@@ -373,7 +373,7 @@ class seeearcsssh_filter(APIView, PaginationHandlerMixin):
 
     def get(self,request,query):
         result = []
-        filter_postmodel_q = Add_Channel.objects.filter(Q(channel_name__iexact=query,channel_name__nospaces = query) | Q(catgory__cat_name__iexact=query)).values('id','channel_name','catgory','channel_logo')
+        filter_postmodel_q = Add_Channel.objects.filter(Q(channel_name__iexact=query) | Q(catgory__cat_name__iexact=query) | Q(channel_name__nospaces = query)).values('id','channel_name','catgory','channel_logo')
         if filter_postmodel_q:
             for p in filter_postmodel_q:
                 result.append(p)
