@@ -383,8 +383,7 @@ class seeearcsssh_filter(APIView, PaginationHandlerMixin):
 
     def get(self,request,query):
         result = []
-        queryst = SearchQuery(query)
-        filter_postmodel_q = Add_Channel.objects.annotate(headline=SearchHeadline('channel_name',query,start_sel='<span>',stop_sel='</span>',),).values('id','channel_name','catgory__cat_name','channel_logo')
+        filter_postmodel_q = Add_Channel.objects.annotate(search=SearchHeadline('id', 'channel_name'),).filter(search=query).values('id','channel_name','catgory__cat_name','channel_logo')
         if filter_postmodel_q:
             for p in filter_postmodel_q:
                 result.append(p)
