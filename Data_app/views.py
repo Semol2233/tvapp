@@ -355,6 +355,15 @@ class play_page_channel_list(APIView, PaginationHandlerMixin):
 
 
 
+from django.contrib.postgres.search import SearchQuery
+
+
+Entry.objects.annotate(search=SearchVector('blog__tagline', 'body_text'),).filter(search='cheese')
+Add_Channel.objects.filter(Q(channel_name__iexact=query) | Q(id__iexact=query) | Q(catgory__cat_name__iexact=query) | Q(straming_url__iexact=query) | Q(channel_logo__iexact=query)).values('id','channel_name','catgory__cat_name','channel_logo')
+
+from django.contrib.postgres.search import SearchHeadline, SearchQuery
+query = SearchQuery('red tomato')
+entry = Entry.objects.annotate(headline=SearchHeadline(), ).get()
 
 
 
@@ -373,7 +382,7 @@ class seeearcsssh_filter(APIView, PaginationHandlerMixin):
 
     def get(self,request,query):
         result = []
-        filter_postmodel_q = Add_Channel.objects.filter(Q(channel_name__iexact=query) | Q(id__iexact=query) | Q(catgory__cat_name__iexact=query) | Q(straming_url__iexact=query) | Q(channel_logo__iexact=query)).values('id','channel_name','catgory__cat_name','channel_logo')
+        filter_postmodel_q = Add_Channel.objects.annotate(search=SearchVector('id', 'channel_name'),).filter(search=query).values('id','channel_name','catgory__cat_name','channel_logo')
         if filter_postmodel_q:
             for p in filter_postmodel_q:
                 result.append(p)
