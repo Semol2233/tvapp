@@ -355,7 +355,7 @@ class play_page_channel_list(APIView, PaginationHandlerMixin):
 
 
 
-from django.contrib.postgres.search import SearchQuery
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 
 # Entry.objects.annotate(search=SearchVector('blog__tagline', 'body_text'),).filter(search='cheese')
