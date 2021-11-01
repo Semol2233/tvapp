@@ -275,7 +275,13 @@ class Featured_Channel_view(generics.ListAPIView):
     queryset = Featrued_Channel.objects.all()
     serializer_class       = fetapitwo
 
+    def list(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_queryset(), many=True)
 
+        res = {"status": "200","results": serializer.data}
+
+     
+        return Response(res)
 
 
 class Homepage_cat(generics.ListAPIView):
@@ -283,6 +289,14 @@ class Homepage_cat(generics.ListAPIView):
     serializer_class       = Catgory_find_data
     filter_backends        = [filters.SearchFilter]
     search_fields          = ['catgory__cat_slug']
+
+    def list(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_queryset(), many=True)
+
+        res = {"status": "200","results": serializer.data}
+
+     
+        return Response(res)
 
 
 
@@ -302,6 +316,7 @@ class playerpagecatgory(APIView, PaginationHandlerMixin):
 
             for author in list(authors):
                 response = {
+                'status':'200',
                 'cat_name': author['cat_name']
 
                 }
@@ -318,18 +333,37 @@ class dtlspage(generics.RetrieveAPIView):
     serializer_class       = details_page_seri
     lookup_field           = ('id')
 
+    def list(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_queryset(), many=True)
 
+        res = {"status": "200","results": serializer.data}
+
+     
+        return Response(res)
 class player_page_listc(generics.ListAPIView):
     queryset = Add_Channel.objects.all()
     serializer_class       = player_page_list
 
+    def list(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_queryset(), many=True)
+
+        res = {"status": "200","results": serializer.data}
+
+     
+        return Response(res)
 
 class cat_list(generics.ListAPIView):
     queryset = Channel_catgory.objects.all()
     serializer_class       = cat_listsa
 
 
+    def list(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_queryset(), many=True)
 
+        res = {"status": "200","results": serializer.data}
+
+     
+        return Response(res)
 
 
 
@@ -350,6 +384,7 @@ class play_page_channel_list(APIView, PaginationHandlerMixin):
 
             for author in list(authors):
                 response = {
+                'status':'200',
                 'cat_name': author['cat_name']
 
                 }
@@ -372,6 +407,7 @@ class qa_pagenation(pagination.PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
+
 
 class seeearcsssh_filter(APIView, PaginationHandlerMixin): 
     pagination_class = qa_pagenation
